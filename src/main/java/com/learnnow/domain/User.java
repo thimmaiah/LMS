@@ -86,6 +86,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -102,6 +105,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     public String getLogin() {

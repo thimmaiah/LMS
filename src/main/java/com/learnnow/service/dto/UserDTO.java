@@ -3,6 +3,7 @@ package com.learnnow.service.dto;
 import com.learnnow.config.Constants;
 
 import com.learnnow.domain.Authority;
+import com.learnnow.domain.Profile;
 import com.learnnow.domain.User;
 
 import javax.validation.constraints.Email;
@@ -52,6 +53,8 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
+
+    private Profile profile;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -195,5 +198,13 @@ public class UserDTO {
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
             "}";
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

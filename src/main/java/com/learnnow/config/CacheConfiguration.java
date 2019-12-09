@@ -42,6 +42,14 @@ public class CacheConfiguration {
             createCache(cm, com.learnnow.domain.User.class.getName());
             createCache(cm, com.learnnow.domain.Authority.class.getName());
             createCache(cm, com.learnnow.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.learnnow.domain.Company.class.getName());
+            createCache(cm, com.learnnow.domain.Company.class.getName() + ".courses");
+            createCache(cm, com.learnnow.domain.Course.class.getName());
+            createCache(cm, com.learnnow.domain.Profile.class.getName());
+            createCache(cm, com.learnnow.domain.Attendence.class.getName());
+            createCache(cm, com.learnnow.domain.Course.class.getName() + ".smes");
+            createCache(cm, com.learnnow.domain.Profile.class.getName() + ".courses");
+            createCache(cm, com.learnnow.domain.Company.class.getName() + ".profiles");
             // jhipster-needle-ehcache-add-entry
         };
     }
