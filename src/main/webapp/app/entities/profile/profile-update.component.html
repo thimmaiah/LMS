@@ -1,0 +1,92 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-profile-heading">Create or edit a Profile</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_points">Points</label>
+                    <input type="number" class="form-control" name="points" id="field_points"
+                           formControlName="points"/>
+                    <div *ngIf="editForm.get('points').invalid && (editForm.get('points').dirty || editForm.get('points').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('points').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('points')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_smeLevel">Sme Level</label>
+                    <select class="form-control" name="smeLevel" formControlName="smeLevel" id="field_smeLevel">
+                        <option value="Expert">Expert</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="New">New</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_skills">Skills</label>
+                    <input type="text" class="form-control" name="skills" id="field_skills"
+                           formControlName="skills"/>
+                    <div *ngIf="editForm.get('skills').invalid && (editForm.get('skills').dirty || editForm.get('skills').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('skills').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_expertIn">Expert In</label>
+                    <input type="text" class="form-control" name="expertIn" id="field_expertIn"
+                           formControlName="expertIn"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shadowingIn">Shadowing In</label>
+                    <input type="text" class="form-control" name="shadowingIn" id="field_shadowingIn"
+                           formControlName="shadowingIn"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_city">City</label>
+                    <input type="text" class="form-control" name="city" id="field_city"
+                           formControlName="city"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_location">Location</label>
+                    <input type="text" class="form-control" name="location" id="field_location"
+                           formControlName="location"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="userId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" formControlName="companyId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-attendence-heading">Create or edit a Attendence</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_attendended">Attendended</label>
+                    <input type="checkbox" class="form-control" name="attendended" id="field_attendended"
+                           formControlName="attendended"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_day">Day</label>
+                    <input type="number" class="form-control" name="day" id="field_day"
+                           formControlName="day"/>
+                    <div *ngIf="editForm.get('day').invalid && (editForm.get('day').dirty || editForm.get('day').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('day').errors.min">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('day').errors.max">
+                            This field cannot be more than 20.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('day')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_rating">Rating</label>
+                    <input type="number" class="form-control" name="rating" id="field_rating"
+                           formControlName="rating"/>
+                    <div *ngIf="editForm.get('rating').invalid && (editForm.get('rating').dirty || editForm.get('rating').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('rating').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('rating').errors.max">
+                            This field cannot be more than 5.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('rating')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_comments">Comments</label>
+                    <input type="text" class="form-control" name="comments" id="field_comments"
+                           formControlName="comments"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_course">Course</label>
+                    <select class="form-control" id="field_course" name="course" formControlName="courseId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="courseOption.id" *ngFor="let courseOption of courses; trackBy: trackCourseById">{{courseOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_profile">Profile</label>
+                    <select class="form-control" id="field_profile" name="profile" formControlName="profileId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

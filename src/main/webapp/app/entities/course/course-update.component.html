@@ -1,0 +1,162 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-course-heading">Create or edit a Course</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name').invalid && (editForm.get('name').dirty || editForm.get('name').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_durationInDays">Duration In Days</label>
+                    <input type="number" class="form-control" name="durationInDays" id="field_durationInDays"
+                           formControlName="durationInDays"/>
+                    <div *ngIf="editForm.get('durationInDays').invalid && (editForm.get('durationInDays').dirty || editForm.get('durationInDays').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('durationInDays').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('durationInDays').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('durationInDays').errors.max">
+                            This field cannot be more than 20.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('durationInDays')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_hoursPerDay">Hours Per Day</label>
+                    <input type="number" class="form-control" name="hoursPerDay" id="field_hoursPerDay"
+                           formControlName="hoursPerDay"/>
+                    <div *ngIf="editForm.get('hoursPerDay').invalid && (editForm.get('hoursPerDay').dirty || editForm.get('hoursPerDay').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('hoursPerDay').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('hoursPerDay').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('hoursPerDay').errors.max">
+                            This field cannot be more than 24.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('hoursPerDay')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_surveyLink">Survey Link</label>
+                    <input type="text" class="form-control" name="surveyLink" id="field_surveyLink"
+                           formControlName="surveyLink"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tags">Tags</label>
+                    <input type="text" class="form-control" name="tags" id="field_tags"
+                           formControlName="tags"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_city">City</label>
+                    <input type="text" class="form-control" name="city" id="field_city"
+                           formControlName="city"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_location">Location</label>
+                    <input type="text" class="form-control" name="location" id="field_location"
+                           formControlName="location"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_startDate">Start Date</label>
+                    <div class="d-flex">
+                        <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" formControlName="startDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('startDate').invalid && (editForm.get('startDate').dirty || editForm.get('startDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('startDate').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('startDate').errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdAt">Created At</label>
+                    <div class="d-flex">
+                        <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" formControlName="createdAt" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('createdAt').invalid && (editForm.get('createdAt').dirty || editForm.get('createdAt').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdAt').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('createdAt').errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_updatedAt">Updated At</label>
+                    <div class="d-flex">
+                        <input id="field_updatedAt" type="datetime-local" class="form-control" name="updatedAt" formControlName="updatedAt" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('updatedAt').invalid && (editForm.get('updatedAt').dirty || editForm.get('updatedAt').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('updatedAt').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('updatedAt').errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="field_smes">Sme</label>
+                    <select class="form-control" id="field_smes" multiple name="smes" formControlName="smes">
+                        <option [ngValue]="getSelected(editForm.get('smes').value, profileOption)" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.user}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" formControlName="companyId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

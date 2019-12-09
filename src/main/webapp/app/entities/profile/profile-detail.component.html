@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="profile">
+            <h2><span>Profile</span> {{profile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Points</span></dt>
+                <dd>
+                    <span>{{profile.points}}</span>
+                </dd>
+                <dt><span>Sme Level</span></dt>
+                <dd>
+                    <span>{{profile.smeLevel}}</span>
+                </dd>
+                <dt><span>Skills</span></dt>
+                <dd>
+                    <span>{{profile.skills}}</span>
+                </dd>
+                <dt><span>Expert In</span></dt>
+                <dd>
+                    <span>{{profile.expertIn}}</span>
+                </dd>
+                <dt><span>Shadowing In</span></dt>
+                <dd>
+                    <span>{{profile.shadowingIn}}</span>
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <span>{{profile.city}}</span>
+                </dd>
+                <dt><span>Location</span></dt>
+                <dd>
+                    <span>{{profile.location}}</span>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{profile.userLogin}}
+                </dd>
+                <dt><span>Company</span></dt>
+                <dd>
+                    <div *ngIf="profile.companyId">
+                        <a [routerLink]="['/company', profile.companyId, 'view']">{{profile.companyName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/profile', profile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+{
+    "name": "Profile",
+    "fields": [
+        {
+            "fieldName": "points",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "smeLevel",
+            "fieldType": "SmeLevel",
+            "fieldValues": "Expert,Intermediate,New"
+        },
+        {
+            "fieldName": "skills",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "expertIn",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "shadowingIn",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "profile",
+            "relationshipName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "profile",
+            "relationshipName": "company",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "course",
+            "otherEntityRelationshipName": "sme",
+            "relationshipName": "course",
+            "otherEntityField": "name",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20191205124711",
+    "entityTableName": "profile",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
