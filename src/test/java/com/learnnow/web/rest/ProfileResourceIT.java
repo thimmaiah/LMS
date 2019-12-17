@@ -3,8 +3,6 @@ package com.learnnow.web.rest;
 import com.learnnow.TestApp;
 import com.learnnow.domain.Profile;
 import com.learnnow.domain.User;
-import com.learnnow.domain.Company;
-import com.learnnow.domain.Course;
 import com.learnnow.repository.ProfileRepository;
 import com.learnnow.repository.search.ProfileSearchRepository;
 import com.learnnow.service.ProfileService;
@@ -856,46 +854,6 @@ public class ProfileResourceIT {
 
         // Get all the profileList where user equals to userId + 1
         defaultProfileShouldNotBeFound("userId.equals=" + (userId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllProfilesByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        profile.setCompany(company);
-        profileRepository.saveAndFlush(profile);
-        Long companyId = company.getId();
-
-        // Get all the profileList where company equals to companyId
-        defaultProfileShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the profileList where company equals to companyId + 1
-        defaultProfileShouldNotBeFound("companyId.equals=" + (companyId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllProfilesByCourseIsEqualToSomething() throws Exception {
-        // Initialize the database
-        profileRepository.saveAndFlush(profile);
-        Course course = CourseResourceIT.createEntity(em);
-        em.persist(course);
-        em.flush();
-        profile.addCourse(course);
-        profileRepository.saveAndFlush(profile);
-        Long courseId = course.getId();
-
-        // Get all the profileList where course equals to courseId
-        defaultProfileShouldBeFound("courseId.equals=" + courseId);
-
-        // Get all the profileList where course equals to courseId + 1
-        defaultProfileShouldNotBeFound("courseId.equals=" + (courseId + 1));
     }
 
     /**

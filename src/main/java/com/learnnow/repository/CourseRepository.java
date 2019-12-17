@@ -25,9 +25,4 @@ public interface CourseRepository extends JpaRepository<Course, Long>, JpaSpecif
     @Query("select course from Course course left join fetch course.smes where course.id =:id")
     Optional<Course> findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query(value="select distinct course from Course course where course.company.id =:companyId",
-    countQuery = "select count(distinct course) from Course course where course.company.id =:companyId")
-    Page<Course> findAllWithCompanyId(@Param("companyId") Long companyId, Pageable pageable);
-
-
 }

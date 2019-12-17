@@ -48,9 +48,8 @@ describe('Course e2e test', () => {
       courseUpdatePage.setLocationInput('location'),
       courseUpdatePage.setStartDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       courseUpdatePage.setCreatedAtInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
-      courseUpdatePage.setUpdatedAtInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+      courseUpdatePage.setUpdatedAtInput('01/01/2001' + protractor.Key.TAB + '02:30AM')
       // courseUpdatePage.smeSelectLastOption(),
-      courseUpdatePage.companySelectLastOption()
     ]);
     expect(await courseUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     expect(await courseUpdatePage.getDurationInDaysInput()).to.eq('5', 'Expected durationInDays value to be equals to 5');

@@ -1,5 +1,4 @@
 package com.learnnow.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -73,11 +72,7 @@ public class Course implements Serializable {
     @JoinTable(name = "course_sme",
                joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "sme_id", referencedColumnName = "id"))
-    private Set<Profile> smes = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties("courses")
-    private Company company;
+    private Set<User> smes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -218,42 +213,27 @@ public class Course implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Profile> getSmes() {
+    public Set<User> getSmes() {
         return smes;
     }
 
-    public Course smes(Set<Profile> profiles) {
-        this.smes = profiles;
+    public Course smes(Set<User> users) {
+        this.smes = users;
         return this;
     }
 
-    public Course addSme(Profile profile) {
-        this.smes.add(profile);
-        profile.getCourses().add(this);
+    public Course addSme(User user) {
+        this.smes.add(user);
         return this;
     }
 
-    public Course removeSme(Profile profile) {
-        this.smes.remove(profile);
-        profile.getCourses().remove(this);
+    public Course removeSme(User user) {
+        this.smes.remove(user);
         return this;
     }
 
-    public void setSmes(Set<Profile> profiles) {
-        this.smes = profiles;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Course company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setSmes(Set<User> users) {
+        this.smes = users;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

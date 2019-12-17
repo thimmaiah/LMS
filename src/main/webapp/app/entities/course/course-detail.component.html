@@ -48,14 +48,8 @@
                 <dt><span>Sme</span></dt>
                 <dd>
                     <span *ngFor="let sme of course.smes; let last = last">
-                        <a [routerLink]="['/profile', sme?.id, 'view' ]">{{sme.user}}</a>{{last ? '' : ', '}}
+                        {{sme.login}}{{last ? '' : ', '}}
                     </span>
-                </dd>
-                <dt><span>Company</span></dt>
-                <dd>
-                    <div *ngIf="course.companyId">
-                        <a [routerLink]="['/company', course.companyId, 'view']">{{course.companyName}}</a>
-                    </div>
                 </dd>
             </dl>
 
@@ -65,7 +59,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
             </button>
 
-            <button type="button"
+            <button type="button" *jhiHasAnyAuthority="'ROLE_ADMIN'"
                     [routerLink]="['/course', course.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>

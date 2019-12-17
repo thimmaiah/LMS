@@ -42,7 +42,6 @@
             <th scope="col"  jhiSortBy="city"><span>City</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="location"><span>Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="userLogin"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="companyName"><span>Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -59,11 +58,6 @@
                 <td>
                     {{profile.userLogin}}
                 </td>
-                <td>
-                    <div *ngIf="profile.companyId">
-                        <a [routerLink]="['/company', profile.companyId , 'view' ]" >{{profile.companyName}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
@@ -72,13 +66,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *ngIf="canEdit(profile)"
                                 [routerLink]="['/profile', profile.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
-                        <button type="submit" (click)="delete(profile)"
+                        <button type="submit" (click)="delete(profile)" *ngIf="canEdit(profile)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>

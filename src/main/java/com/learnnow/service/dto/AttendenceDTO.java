@@ -27,7 +27,9 @@ public class AttendenceDTO implements Serializable {
 
     private String courseName;
 
-    private Long profileId;
+    private Long userId;
+
+    private String userLogin;
 
     public Long getId() {
         return id;
@@ -85,12 +87,20 @@ public class AttendenceDTO implements Serializable {
         this.courseName = courseName;
     }
 
-    public Long getProfileId() {
-        return profileId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     @Override
@@ -124,7 +134,8 @@ public class AttendenceDTO implements Serializable {
             ", comments='" + getComments() + "'" +
             ", course=" + getCourseId() +
             ", course='" + getCourseName() + "'" +
-            ", profile=" + getProfileId() +
+            ", user=" + getUserId() +
+            ", user='" + getUserLogin() + "'" +
             "}";
     }
 }

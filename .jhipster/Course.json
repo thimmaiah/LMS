@@ -71,18 +71,11 @@
     "relationships": [
         {
             "relationshipType": "many-to-many",
-            "otherEntityName": "profile",
+            "otherEntityName": "user",
             "otherEntityRelationshipName": "course",
             "relationshipName": "sme",
-            "otherEntityField": "user",
+            "otherEntityField": "login",
             "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "course",
-            "relationshipName": "company",
-            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20191205124710",

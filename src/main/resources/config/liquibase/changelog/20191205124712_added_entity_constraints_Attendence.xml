@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="course"/>
 
-        <addForeignKeyConstraint baseColumnNames="profile_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="attendence"
-                                 constraintName="fk_attendence_profile_id"
+                                 constraintName="fk_attendence_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="profile"/>
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

@@ -37,12 +37,6 @@
                 <dd>
                     {{profile.userLogin}}
                 </dd>
-                <dt><span>Company</span></dt>
-                <dd>
-                    <div *ngIf="profile.companyId">
-                        <a [routerLink]="['/company', profile.companyId, 'view']">{{profile.companyName}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

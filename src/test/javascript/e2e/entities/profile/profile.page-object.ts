@@ -34,7 +34,6 @@ export class ProfileUpdatePage {
   cityInput = element(by.id('field_city'));
   locationInput = element(by.id('field_location'));
   userSelect = element(by.id('field_user'));
-  companySelect = element(by.id('field_company'));
 
   async getPageTitle() {
     return this.pageTitle.getText();
@@ -120,25 +119,6 @@ export class ProfileUpdatePage {
 
   async getUserSelectedOption() {
     return await this.userSelect.element(by.css('option:checked')).getText();
-  }
-
-  async companySelectLastOption() {
-    await this.companySelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async companySelectOption(option) {
-    await this.companySelect.sendKeys(option);
-  }
-
-  getCompanySelect(): ElementFinder {
-    return this.companySelect;
-  }
-
-  async getCompanySelectedOption() {
-    return await this.companySelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

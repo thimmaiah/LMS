@@ -18,8 +18,6 @@ import com.learnnow.domain.Course;
 import com.learnnow.domain.*; // for static metamodels
 import com.learnnow.repository.CourseRepository;
 import com.learnnow.repository.search.CourseSearchRepository;
-import com.learnnow.security.AuthoritiesConstants;
-import com.learnnow.security.SecurityUtils;
 import com.learnnow.service.dto.CourseCriteria;
 import com.learnnow.service.dto.CourseDTO;
 import com.learnnow.service.mapper.CourseMapper;
@@ -42,14 +40,10 @@ public class CourseQueryService extends QueryService<Course> {
 
     private final CourseSearchRepository courseSearchRepository;
 
-    private final UserService userService;
-
-
-    public CourseQueryService(CourseRepository courseRepository, CourseMapper courseMapper, CourseSearchRepository courseSearchRepository, UserService userService) {
+    public CourseQueryService(CourseRepository courseRepository, CourseMapper courseMapper, CourseSearchRepository courseSearchRepository) {
         this.courseRepository = courseRepository;
         this.courseMapper = courseMapper;
         this.courseSearchRepository = courseSearchRepository;
-        this.userService = userService;
     }
 
     /**
@@ -74,16 +68,8 @@ public class CourseQueryService extends QueryService<Course> {
     public Page<CourseDTO> findByCriteria(CourseCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Course> specification = createSpecification(criteria);
-        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
-            return courseRepository.findAll(specification, page)
-                .map(courseMapper::toDto);
-        }
-         else {
-            User currentUser = userService.getUserWithAuthorities().get(); 
-            return courseRepository.findAllWithCompanyId(currentUser.getProfile().getCompany().getId(), page)
+        return courseRepository.findAll(specification, page)
             .map(courseMapper::toDto);
-         }
-
     }
 
     /**
@@ -141,11 +127,7 @@ public class CourseQueryService extends QueryService<Course> {
             }
             if (criteria.getSmeId() != null) {
                 specification = specification.and(buildSpecification(criteria.getSmeId(),
-                    root -> root.join(Course_.smes, JoinType.LEFT).get(Profile_.id)));
-            }
-            if (criteria.getCompanyId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCompanyId(),
-                    root -> root.join(Course_.company, JoinType.LEFT).get(Company_.id)));
+                    root -> root.join(Course_.smes, JoinType.LEFT).get(User_.id)));
             }
         }
         return specification;

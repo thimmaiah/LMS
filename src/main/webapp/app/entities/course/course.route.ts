@@ -58,7 +58,7 @@ export const courseRoute: Routes = [
       course: CourseResolve
     },
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_USER'],
       pageTitle: 'Courses'
     },
     canActivate: [UserRouteAccessService]
@@ -70,7 +70,7 @@ export const courseRoute: Routes = [
       course: CourseResolve
     },
     data: {
-      authorities: ['ROLE_ADMIN'],
+      authorities: ['ROLE_USER'],
       pageTitle: 'Courses'
     },
     canActivate: [UserRouteAccessService]

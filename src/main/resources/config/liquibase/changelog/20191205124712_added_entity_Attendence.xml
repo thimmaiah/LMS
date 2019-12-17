@@ -29,10 +29,10 @@
                 <constraints nullable="true" />
             </column>
             <column name="course_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_attendence_course_id" />
+                <constraints nullable="true" />
             </column>
-            <column name="profile_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_attendence_profile_id" />
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>

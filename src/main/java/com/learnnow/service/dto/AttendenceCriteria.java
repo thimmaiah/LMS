@@ -36,7 +36,7 @@ public class AttendenceCriteria implements Serializable, Criteria {
 
     private LongFilter courseId;
 
-    private LongFilter profileId;
+    private LongFilter userId;
 
     public AttendenceCriteria(){
     }
@@ -48,7 +48,7 @@ public class AttendenceCriteria implements Serializable, Criteria {
         this.rating = other.rating == null ? null : other.rating.copy();
         this.comments = other.comments == null ? null : other.comments.copy();
         this.courseId = other.courseId == null ? null : other.courseId.copy();
-        this.profileId = other.profileId == null ? null : other.profileId.copy();
+        this.userId = other.userId == null ? null : other.userId.copy();
     }
 
     @Override
@@ -104,12 +104,12 @@ public class AttendenceCriteria implements Serializable, Criteria {
         this.courseId = courseId;
     }
 
-    public LongFilter getProfileId() {
-        return profileId;
+    public LongFilter getUserId() {
+        return userId;
     }
 
-    public void setProfileId(LongFilter profileId) {
-        this.profileId = profileId;
+    public void setUserId(LongFilter userId) {
+        this.userId = userId;
     }
 
 
@@ -129,7 +129,7 @@ public class AttendenceCriteria implements Serializable, Criteria {
             Objects.equals(rating, that.rating) &&
             Objects.equals(comments, that.comments) &&
             Objects.equals(courseId, that.courseId) &&
-            Objects.equals(profileId, that.profileId);
+            Objects.equals(userId, that.userId);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class AttendenceCriteria implements Serializable, Criteria {
         rating,
         comments,
         courseId,
-        profileId
+        userId
         );
     }
 
@@ -154,7 +154,7 @@ public class AttendenceCriteria implements Serializable, Criteria {
                 (rating != null ? "rating=" + rating + ", " : "") +
                 (comments != null ? "comments=" + comments + ", " : "") +
                 (courseId != null ? "courseId=" + courseId + ", " : "") +
-                (profileId != null ? "profileId=" + profileId + ", " : "") +
+                (userId != null ? "userId=" + userId + ", " : "") +
             "}";
     }
 

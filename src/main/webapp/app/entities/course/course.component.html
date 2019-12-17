@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span>Courses</span>
-        <button  *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-course" [routerLink]="['/course/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-course" [routerLink]="['/course/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down" >
             Create a new Course
@@ -44,7 +44,6 @@
             <th scope="col"  jhiSortBy="startDate"><span>Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="updatedAt"><span>Updated At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="companyName"><span>Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -61,14 +60,9 @@
                 <td>{{course.startDate | date:'medium'}}</td>
                 <td>{{course.createdAt | date:'medium'}}</td>
                 <td>{{course.updatedAt | date:'medium'}}</td>
-                <td>
-                    <div *ngIf="course.companyId">
-                        <a [routerLink]="['/company', course.companyId , 'view' ]" >{{course.companyName}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
-                        <button type="submit"
+                        <button type="submit" 
                                 [routerLink]="['/course', course.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>

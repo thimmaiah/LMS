@@ -32,20 +32,18 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "otherEntityName": "course",
             "otherEntityRelationshipName": "attendence",
             "relationshipName": "course",
-            "otherEntityField": "name",
-            "ownerSide": true
+            "otherEntityField": "name"
         },
         {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "profile",
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
             "otherEntityRelationshipName": "attendence",
-            "relationshipName": "profile",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "relationshipName": "user",
+            "otherEntityField": "login"
         }
     ],
     "changelogDate": "20191205124712",

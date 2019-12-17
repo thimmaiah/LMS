@@ -43,7 +43,7 @@ describe('Attendence e2e test', () => {
       attendenceUpdatePage.setRatingInput('5'),
       attendenceUpdatePage.setCommentsInput('comments'),
       attendenceUpdatePage.courseSelectLastOption(),
-      attendenceUpdatePage.profileSelectLastOption()
+      attendenceUpdatePage.userSelectLastOption()
     ]);
     const selectedAttendended = attendenceUpdatePage.getAttendendedInput();
     if (await selectedAttendended.isSelected()) {

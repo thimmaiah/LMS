@@ -4,6 +4,8 @@ import com.learnnow.service.AttendenceService;
 import com.learnnow.web.rest.errors.BadRequestAlertException;
 import com.learnnow.service.dto.AttendenceDTO;
 import com.learnnow.service.dto.AttendenceCriteria;
+import com.learnnow.security.AuthoritiesConstants;
+import com.learnnow.security.SecurityUtils;
 import com.learnnow.service.AttendenceQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -105,7 +107,12 @@ public class AttendenceResource {
     @GetMapping("/attendences")
     public ResponseEntity<List<AttendenceDTO>> getAllAttendences(AttendenceCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Attendences by criteria: {}", criteria);
-        Page<AttendenceDTO> page = attendenceQueryService.findByCriteria(criteria, pageable);
+        Page<AttendenceDTO> page;
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) { 
+            page = attendenceQueryService.findByCriteria(criteria, pageable);
+        } else {
+            page = attendenceQueryService.findByCurrentUser(criteria, pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

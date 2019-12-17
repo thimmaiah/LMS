@@ -32,10 +32,6 @@ public class ProfileDTO implements Serializable {
 
     private String userLogin;
 
-    private Long companyId;
-
-    private String companyName;
-
     public Long getId() {
         return id;
     }
@@ -116,22 +112,6 @@ public class ProfileDTO implements Serializable {
         this.userLogin = userLogin;
     }
 
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -166,8 +146,6 @@ public class ProfileDTO implements Serializable {
             ", location='" + getLocation() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
-            ", company=" + getCompanyId() +
-            ", company='" + getCompanyName() + "'" +
             "}";
     }
 }

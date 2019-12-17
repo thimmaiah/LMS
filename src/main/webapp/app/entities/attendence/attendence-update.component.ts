@@ -10,8 +10,8 @@ import { IAttendence, Attendence } from 'app/shared/model/attendence.model';
 import { AttendenceService } from './attendence.service';
 import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course/course.service';
-import { IProfile } from 'app/shared/model/profile.model';
-import { ProfileService } from 'app/entities/profile/profile.service';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'jhi-attendence-update',
@@ -22,7 +22,7 @@ export class AttendenceUpdateComponent implements OnInit {
 
   courses: ICourse[];
 
-  profiles: IProfile[];
+  users: IUser[];
 
   editForm = this.fb.group({
     id: [],
@@ -31,14 +31,14 @@ export class AttendenceUpdateComponent implements OnInit {
     rating: [null, [Validators.min(0), Validators.max(5)]],
     comments: [],
     courseId: [],
-    profileId: []
+    userId: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected attendenceService: AttendenceService,
     protected courseService: CourseService,
-    protected profileService: ProfileService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -48,36 +48,12 @@ export class AttendenceUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ attendence }) => {
       this.updateForm(attendence);
     });
-    this.courseService.query({ 'attendenceId.specified': 'false' }).subscribe(
-      (res: HttpResponse<ICourse[]>) => {
-        if (!this.editForm.get('courseId').value) {
-          this.courses = res.body;
-        } else {
-          this.courseService
-            .find(this.editForm.get('courseId').value)
-            .subscribe(
-              (subRes: HttpResponse<ICourse>) => (this.courses = [subRes.body].concat(res.body)),
-              (subRes: HttpErrorResponse) => this.onError(subRes.message)
-            );
-        }
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.profileService.query({ 'attendenceId.specified': 'false' }).subscribe(
-      (res: HttpResponse<IProfile[]>) => {
-        if (!this.editForm.get('profileId').value) {
-          this.profiles = res.body;
-        } else {
-          this.profileService
-            .find(this.editForm.get('profileId').value)
-            .subscribe(
-              (subRes: HttpResponse<IProfile>) => (this.profiles = [subRes.body].concat(res.body)),
-              (subRes: HttpErrorResponse) => this.onError(subRes.message)
-            );
-        }
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+    this.courseService
+      .query()
+      .subscribe((res: HttpResponse<ICourse[]>) => (this.courses = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+    this.userService
+      .query()
+      .subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(attendence: IAttendence) {
@@ -88,7 +64,7 @@ export class AttendenceUpdateComponent implements OnInit {
       rating: attendence.rating,
       comments: attendence.comments,
       courseId: attendence.courseId,
-      profileId: attendence.profileId
+      userId: attendence.userId
     });
   }
 
@@ -115,7 +91,7 @@ export class AttendenceUpdateComponent implements OnInit {
       rating: this.editForm.get(['rating']).value,
       comments: this.editForm.get(['comments']).value,
       courseId: this.editForm.get(['courseId']).value,
-      profileId: this.editForm.get(['profileId']).value
+      userId: this.editForm.get(['userId']).value
     };
   }
 
@@ -139,7 +115,7 @@ export class AttendenceUpdateComponent implements OnInit {
     return item.id;
   }
 
-  trackProfileById(index: number, item: IProfile) {
+  trackUserById(index: number, item: IUser) {
     return item.id;
   }
 }

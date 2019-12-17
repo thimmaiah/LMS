@@ -44,11 +44,7 @@ public class CourseDTO implements Serializable {
     private Instant updatedAt;
 
 
-    private Set<ProfileDTO> smes = new HashSet<>();
-
-    private Long companyId;
-
-    private String companyName;
+    private Set<UserDTO> smes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -138,28 +134,12 @@ public class CourseDTO implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<ProfileDTO> getSmes() {
+    public Set<UserDTO> getSmes() {
         return smes;
     }
 
-    public void setSmes(Set<ProfileDTO> profiles) {
-        this.smes = profiles;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setSmes(Set<UserDTO> users) {
+        this.smes = users;
     }
 
     @Override
@@ -197,8 +177,6 @@ public class CourseDTO implements Serializable {
             ", startDate='" + getStartDate() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
-            ", company=" + getCompanyId() +
-            ", company='" + getCompanyName() + "'" +
             "}";
     }
 }

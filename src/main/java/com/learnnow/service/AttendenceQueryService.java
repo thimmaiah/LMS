@@ -72,6 +72,14 @@ public class AttendenceQueryService extends QueryService<Attendence> {
             .map(attendenceMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Page<AttendenceDTO> findByCurrentUser(AttendenceCriteria criteria, Pageable page) {
+        log.debug("find by criteria : {}, page: {}", criteria, page);
+        final Specification<Attendence> specification = createSpecification(criteria);
+        return attendenceRepository.findByUserIsCurrentUser(specification, page)
+            .map(attendenceMapper::toDto);
+    }
+
     /**
      * Return the number of matching entities in the database.
      * @param criteria The object which holds all the filters, which the entities should match.
@@ -111,9 +119,9 @@ public class AttendenceQueryService extends QueryService<Attendence> {
                 specification = specification.and(buildSpecification(criteria.getCourseId(),
                     root -> root.join(Attendence_.course, JoinType.LEFT).get(Course_.id)));
             }
-            if (criteria.getProfileId() != null) {
-                specification = specification.and(buildSpecification(criteria.getProfileId(),
-                    root -> root.join(Attendence_.profile, JoinType.LEFT).get(Profile_.id)));
+            if (criteria.getUserId() != null) {
+                specification = specification.and(buildSpecification(criteria.getUserId(),
+                    root -> root.join(Attendence_.user, JoinType.LEFT).get(User_.id)));
             }
         }
         return specification;

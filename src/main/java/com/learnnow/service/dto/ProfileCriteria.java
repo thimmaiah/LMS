@@ -61,10 +61,6 @@ public class ProfileCriteria implements Serializable, Criteria {
 
     private LongFilter userId;
 
-    private LongFilter companyId;
-
-    private LongFilter courseId;
-
     public ProfileCriteria(){
     }
 
@@ -78,8 +74,6 @@ public class ProfileCriteria implements Serializable, Criteria {
         this.city = other.city == null ? null : other.city.copy();
         this.location = other.location == null ? null : other.location.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
-        this.courseId = other.courseId == null ? null : other.courseId.copy();
     }
 
     @Override
@@ -159,22 +153,6 @@ public class ProfileCriteria implements Serializable, Criteria {
         this.userId = userId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
-    public LongFilter getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(LongFilter courseId) {
-        this.courseId = courseId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -194,9 +172,7 @@ public class ProfileCriteria implements Serializable, Criteria {
             Objects.equals(shadowingIn, that.shadowingIn) &&
             Objects.equals(city, that.city) &&
             Objects.equals(location, that.location) &&
-            Objects.equals(userId, that.userId) &&
-            Objects.equals(companyId, that.companyId) &&
-            Objects.equals(courseId, that.courseId);
+            Objects.equals(userId, that.userId);
     }
 
     @Override
@@ -210,9 +186,7 @@ public class ProfileCriteria implements Serializable, Criteria {
         shadowingIn,
         city,
         location,
-        userId,
-        companyId,
-        courseId
+        userId
         );
     }
 
@@ -228,8 +202,6 @@ public class ProfileCriteria implements Serializable, Criteria {
                 (city != null ? "city=" + city + ", " : "") +
                 (location != null ? "location=" + location + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
-                (courseId != null ? "courseId=" + courseId + ", " : "") +
             "}";
     }
 

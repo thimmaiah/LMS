@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IProfile } from 'app/shared/model/profile.model';
+import { IUser } from 'app/core/user/user.model';
 
 export interface ICourse {
   id?: number;
@@ -13,9 +13,7 @@ export interface ICourse {
   startDate?: Moment;
   createdAt?: Moment;
   updatedAt?: Moment;
-  smes?: IProfile[];
-  companyName?: string;
-  companyId?: number;
+  smes?: IUser[];
 }
 
 export class Course implements ICourse {
@@ -31,8 +29,6 @@ export class Course implements ICourse {
     public startDate?: Moment,
     public createdAt?: Moment,
     public updatedAt?: Moment,
-    public smes?: IProfile[],
-    public companyName?: string,
-    public companyId?: number
+    public smes?: IUser[]
   ) {}
 }

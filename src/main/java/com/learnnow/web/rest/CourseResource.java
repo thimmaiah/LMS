@@ -4,7 +4,6 @@ import com.learnnow.service.CourseService;
 import com.learnnow.web.rest.errors.BadRequestAlertException;
 import com.learnnow.service.dto.CourseDTO;
 import com.learnnow.service.dto.CourseCriteria;
-import com.learnnow.security.AuthoritiesConstants;
 import com.learnnow.service.CourseQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -63,7 +62,7 @@ public class CourseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/courses")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CourseDTO> createCourse(@Valid @RequestBody CourseDTO courseDTO) throws URISyntaxException {
         log.debug("REST request to save Course : {}", courseDTO);
         if (courseDTO.getId() != null) {
@@ -85,7 +84,7 @@ public class CourseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/courses")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CourseDTO> updateCourse(@Valid @RequestBody CourseDTO courseDTO) throws URISyntaxException {
         log.debug("REST request to update Course : {}", courseDTO);
         if (courseDTO.getId() == null) {
@@ -146,7 +145,7 @@ public class CourseResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/courses/{id}")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         log.debug("REST request to delete Course : {}", id);
         courseService.delete(id);

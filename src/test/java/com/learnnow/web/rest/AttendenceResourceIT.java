@@ -3,7 +3,7 @@ package com.learnnow.web.rest;
 import com.learnnow.TestApp;
 import com.learnnow.domain.Attendence;
 import com.learnnow.domain.Course;
-import com.learnnow.domain.Profile;
+import com.learnnow.domain.User;
 import com.learnnow.repository.AttendenceRepository;
 import com.learnnow.repository.search.AttendenceSearchRepository;
 import com.learnnow.service.AttendenceService;
@@ -610,21 +610,21 @@ public class AttendenceResourceIT {
 
     @Test
     @Transactional
-    public void getAllAttendencesByProfileIsEqualToSomething() throws Exception {
+    public void getAllAttendencesByUserIsEqualToSomething() throws Exception {
         // Initialize the database
         attendenceRepository.saveAndFlush(attendence);
-        Profile profile = ProfileResourceIT.createEntity(em);
-        em.persist(profile);
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
         em.flush();
-        attendence.setProfile(profile);
+        attendence.setUser(user);
         attendenceRepository.saveAndFlush(attendence);
-        Long profileId = profile.getId();
+        Long userId = user.getId();
 
-        // Get all the attendenceList where profile equals to profileId
-        defaultAttendenceShouldBeFound("profileId.equals=" + profileId);
+        // Get all the attendenceList where user equals to userId
+        defaultAttendenceShouldBeFound("userId.equals=" + userId);
 
-        // Get all the attendenceList where profile equals to profileId + 1
-        defaultAttendenceShouldNotBeFound("profileId.equals=" + (profileId + 1));
+        // Get all the attendenceList where user equals to userId + 1
+        defaultAttendenceShouldNotBeFound("userId.equals=" + (userId + 1));
     }
 
     /**

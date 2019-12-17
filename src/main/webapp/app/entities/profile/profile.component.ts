@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, identity } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,6 +10,8 @@ import { IProfile } from 'app/shared/model/profile.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ProfileService } from './profile.service';
 import { ProfileDeleteDialogComponent } from './profile-delete-dialog.component';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
 
 @Component({
   selector: 'jhi-profile',
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  account: Account;
 
   constructor(
     protected profileService: ProfileService,
@@ -36,7 +39,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected accountService: AccountService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -45,10 +49,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
         ? this.activatedRoute.snapshot.queryParams['search']
         : '';
+
+    this.accountService = accountService;
+    this.accountService.identity().subscribe(acc => (this.account = acc));
+  }
+
+  canEdit(profile) {
+    if (this.account.login === profile.userLogin || this.accountService.hasAnyAuthority('ROLE_ADMIN')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   loadAll() {

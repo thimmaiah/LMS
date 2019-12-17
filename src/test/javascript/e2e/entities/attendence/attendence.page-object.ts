@@ -31,7 +31,7 @@ export class AttendenceUpdatePage {
   ratingInput = element(by.id('field_rating'));
   commentsInput = element(by.id('field_comments'));
   courseSelect = element(by.id('field_course'));
-  profileSelect = element(by.id('field_profile'));
+  userSelect = element(by.id('field_user'));
 
   async getPageTitle() {
     return this.pageTitle.getText();
@@ -83,23 +83,23 @@ export class AttendenceUpdatePage {
     return await this.courseSelect.element(by.css('option:checked')).getText();
   }
 
-  async profileSelectLastOption() {
-    await this.profileSelect
+  async userSelectLastOption() {
+    await this.userSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async profileSelectOption(option) {
-    await this.profileSelect.sendKeys(option);
+  async userSelectOption(option) {
+    await this.userSelect.sendKeys(option);
   }
 
-  getProfileSelect(): ElementFinder {
-    return this.profileSelect;
+  getUserSelect(): ElementFinder {
+    return this.userSelect;
   }
 
-  async getProfileSelectedOption() {
-    return await this.profileSelect.element(by.css('option:checked')).getText();
+  async getUserSelectedOption() {
+    return await this.userSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

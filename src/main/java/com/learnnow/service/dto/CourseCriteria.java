@@ -49,8 +49,6 @@ public class CourseCriteria implements Serializable, Criteria {
 
     private LongFilter smeId;
 
-    private LongFilter companyId;
-
     public CourseCriteria(){
     }
 
@@ -67,7 +65,6 @@ public class CourseCriteria implements Serializable, Criteria {
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
         this.smeId = other.smeId == null ? null : other.smeId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -171,14 +168,6 @@ public class CourseCriteria implements Serializable, Criteria {
         this.smeId = smeId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -201,8 +190,7 @@ public class CourseCriteria implements Serializable, Criteria {
             Objects.equals(startDate, that.startDate) &&
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
-            Objects.equals(smeId, that.smeId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(smeId, that.smeId);
     }
 
     @Override
@@ -219,8 +207,7 @@ public class CourseCriteria implements Serializable, Criteria {
         startDate,
         createdAt,
         updatedAt,
-        smeId,
-        companyId
+        smeId
         );
     }
 
@@ -239,7 +226,6 @@ public class CourseCriteria implements Serializable, Criteria {
                 (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
                 (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
                 (smeId != null ? "smeId=" + smeId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

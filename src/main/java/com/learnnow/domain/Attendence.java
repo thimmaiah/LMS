@@ -1,10 +1,12 @@
 package com.learnnow.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 
@@ -40,13 +42,13 @@ public class Attendence implements Serializable {
     @Column(name = "comments")
     private String comments;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnore
     private Course course;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Profile profile;
+    @ManyToOne
+    @JsonIgnore
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -122,17 +124,17 @@ public class Attendence implements Serializable {
         this.course = course;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public User getUser() {
+        return user;
     }
 
-    public Attendence profile(Profile profile) {
-        this.profile = profile;
+    public Attendence user(User user) {
+        this.user = user;
         return this;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

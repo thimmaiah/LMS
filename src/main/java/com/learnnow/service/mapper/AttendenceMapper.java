@@ -8,16 +8,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Attendence} and its DTO {@link AttendenceDTO}.
  */
-@Mapper(componentModel = "spring", uses = {CourseMapper.class, ProfileMapper.class})
+@Mapper(componentModel = "spring", uses = {CourseMapper.class, UserMapper.class})
 public interface AttendenceMapper extends EntityMapper<AttendenceDTO, Attendence> {
 
     @Mapping(source = "course.id", target = "courseId")
     @Mapping(source = "course.name", target = "courseName")
-    @Mapping(source = "profile.id", target = "profileId")
+    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "user.login", target = "userLogin")
     AttendenceDTO toDto(Attendence attendence);
 
     @Mapping(source = "courseId", target = "course")
-    @Mapping(source = "profileId", target = "profile")
+    @Mapping(source = "userId", target = "user")
     Attendence toEntity(AttendenceDTO attendenceDTO);
 
     default Attendence fromId(Long id) {

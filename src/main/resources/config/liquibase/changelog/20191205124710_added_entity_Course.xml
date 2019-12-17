@@ -46,9 +46,6 @@
             <column name="updated_at" type="datetime">
                 <constraints nullable="false" />
             </column>
-            <column name="company_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="course" columnName="start_date" columnDataType="datetime"/>

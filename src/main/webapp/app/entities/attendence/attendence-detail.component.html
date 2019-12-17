@@ -27,11 +27,9 @@
                         <a [routerLink]="['/course', attendence.courseId, 'view']">{{attendence.courseName}}</a>
                     </div>
                 </dd>
-                <dt><span>Profile</span></dt>
+                <dt><span>User</span></dt>
                 <dd>
-                    <div *ngIf="attendence.profileId">
-                        <a [routerLink]="['/profile', attendence.profileId, 'view']">{{attendence.profileId}}</a>
-                    </div>
+                    {{attendence.userLogin}}
                 </dd>
             </dl>
 

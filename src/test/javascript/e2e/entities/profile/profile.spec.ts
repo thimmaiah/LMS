@@ -46,8 +46,7 @@ describe('Profile e2e test', () => {
       profileUpdatePage.setShadowingInInput('shadowingIn'),
       profileUpdatePage.setCityInput('city'),
       profileUpdatePage.setLocationInput('location'),
-      profileUpdatePage.userSelectLastOption(),
-      profileUpdatePage.companySelectLastOption()
+      profileUpdatePage.userSelectLastOption()
     ]);
     expect(await profileUpdatePage.getPointsInput()).to.eq('5', 'Expected points value to be equals to 5');
     expect(await profileUpdatePage.getSkillsInput()).to.eq('skills', 'Expected Skills value to be equals to skills');

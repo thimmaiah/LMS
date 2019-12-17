@@ -2,8 +2,7 @@ package com.learnnow.web.rest;
 
 import com.learnnow.TestApp;
 import com.learnnow.domain.Course;
-import com.learnnow.domain.Profile;
-import com.learnnow.domain.Company;
+import com.learnnow.domain.User;
 import com.learnnow.repository.CourseRepository;
 import com.learnnow.repository.search.CourseSearchRepository;
 import com.learnnow.service.CourseService;
@@ -1214,7 +1213,7 @@ public class CourseResourceIT {
     public void getAllCoursesBySmeIsEqualToSomething() throws Exception {
         // Initialize the database
         courseRepository.saveAndFlush(course);
-        Profile sme = ProfileResourceIT.createEntity(em);
+        User sme = UserResourceIT.createEntity(em);
         em.persist(sme);
         em.flush();
         course.addSme(sme);
@@ -1226,26 +1225,6 @@ public class CourseResourceIT {
 
         // Get all the courseList where sme equals to smeId + 1
         defaultCourseShouldNotBeFound("smeId.equals=" + (smeId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllCoursesByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        courseRepository.saveAndFlush(course);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        course.setCompany(company);
-        courseRepository.saveAndFlush(course);
-        Long companyId = company.getId();
-
-        // Get all the courseList where company equals to companyId
-        defaultCourseShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the courseList where company equals to companyId + 1
-        defaultCourseShouldNotBeFound("companyId.equals=" + (companyId + 1));
     }
 
     /**

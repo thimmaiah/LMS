@@ -6,7 +6,8 @@ export interface IAttendence {
   comments?: string;
   courseName?: string;
   courseId?: number;
-  profileId?: number;
+  userLogin?: string;
+  userId?: number;
 }
 
 export class Attendence implements IAttendence {
@@ -18,7 +19,8 @@ export class Attendence implements IAttendence {
     public comments?: string,
     public courseName?: string,
     public courseId?: number,
-    public profileId?: number
+    public userLogin?: string,
+    public userId?: number
   ) {
     this.attendended = this.attendended || false;
   }

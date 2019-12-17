@@ -1,6 +1,4 @@
 package com.learnnow.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,9 +7,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learnnow.domain.enumeration.SmeLevel;
 
 /**
@@ -55,19 +52,9 @@ public class Profile implements Serializable {
     private String location;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(unique = true)
-    @JsonIgnore
     private User user;
-
-    @ManyToOne
-    @JsonIgnoreProperties("profiles")
-    @JsonIgnore
-    private Company company;
-
-    @ManyToMany(mappedBy = "smes")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<Course> courses = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -180,44 +167,6 @@ public class Profile implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Profile company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
-    public Profile courses(Set<Course> courses) {
-        this.courses = courses;
-        return this;
-    }
-
-    public Profile addCourse(Course course) {
-        this.courses.add(course);
-        course.getSmes().add(this);
-        return this;
-    }
-
-    public Profile removeCourse(Course course) {
-        this.courses.remove(course);
-        course.getSmes().remove(this);
-        return this;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

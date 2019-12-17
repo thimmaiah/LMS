@@ -10,10 +10,6 @@ import { IProfile, Profile } from 'app/shared/model/profile.model';
 import { ProfileService } from './profile.service';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
-import { ICourse } from 'app/shared/model/course.model';
-import { CourseService } from 'app/entities/course/course.service';
 
 @Component({
   selector: 'jhi-profile-update',
@@ -24,10 +20,6 @@ export class ProfileUpdateComponent implements OnInit {
 
   users: IUser[];
 
-  companies: ICompany[];
-
-  courses: ICourse[];
-
   editForm = this.fb.group({
     id: [],
     points: [null, [Validators.min(0)]],
@@ -37,16 +29,13 @@ export class ProfileUpdateComponent implements OnInit {
     shadowingIn: [],
     city: [],
     location: [],
-    userId: [],
-    companyId: []
+    userId: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected profileService: ProfileService,
     protected userService: UserService,
-    protected companyService: CompanyService,
-    protected courseService: CourseService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -59,12 +48,6 @@ export class ProfileUpdateComponent implements OnInit {
     this.userService
       .query()
       .subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.courseService
-      .query()
-      .subscribe((res: HttpResponse<ICourse[]>) => (this.courses = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(profile: IProfile) {
@@ -77,8 +60,7 @@ export class ProfileUpdateComponent implements OnInit {
       shadowingIn: profile.shadowingIn,
       city: profile.city,
       location: profile.location,
-      userId: profile.userId,
-      companyId: profile.companyId
+      userId: profile.userId
     });
   }
 
@@ -107,8 +89,7 @@ export class ProfileUpdateComponent implements OnInit {
       shadowingIn: this.editForm.get(['shadowingIn']).value,
       city: this.editForm.get(['city']).value,
       location: this.editForm.get(['location']).value,
-      userId: this.editForm.get(['userId']).value,
-      companyId: this.editForm.get(['companyId']).value
+      userId: this.editForm.get(['userId']).value
     };
   }
 
@@ -130,24 +111,5 @@ export class ProfileUpdateComponent implements OnInit {
 
   trackUserById(index: number, item: IUser) {
     return item.id;
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
-    return item.id;
-  }
-
-  trackCourseById(index: number, item: ICourse) {
-    return item.id;
-  }
-
-  getSelected(selectedVals: any[], option: any) {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
   }
 }

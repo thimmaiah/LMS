@@ -1,4 +1,3 @@
-import { ICourse } from 'app/shared/model/course.model';
 import { SmeLevel } from 'app/shared/model/enumerations/sme-level.model';
 
 export interface IProfile {
@@ -12,9 +11,6 @@ export interface IProfile {
   location?: string;
   userLogin?: string;
   userId?: number;
-  companyName?: string;
-  companyId?: number;
-  courses?: ICourse[];
 }
 
 export class Profile implements IProfile {
@@ -28,9 +24,6 @@ export class Profile implements IProfile {
     public city?: string,
     public location?: string,
     public userLogin?: string,
-    public userId?: number,
-    public companyName?: string,
-    public companyId?: number,
-    public courses?: ICourse[]
+    public userId?: number
   ) {}
 }

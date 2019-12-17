@@ -46,21 +46,6 @@
             "relationshipName": "user",
             "otherEntityField": "login",
             "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "profile",
-            "relationshipName": "company",
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "course",
-            "otherEntityRelationshipName": "sme",
-            "relationshipName": "course",
-            "otherEntityField": "name",
-            "ownerSide": false
         }
     ],
     "changelogDate": "20191205124711",

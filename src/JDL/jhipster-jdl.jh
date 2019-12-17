@@ -1,0 +1,60 @@
+entity Course {
+	id Integer required
+    name String required
+    durationInDays Float required min(0) max(20)
+    hoursPerDay Float required min(0) max(24)
+    surveyLink String
+    tags String
+    city String
+    location String	
+    startDate Instant required
+	createdAt Instant required
+	updatedAt Instant required
+}
+
+enum SmeLevel {
+  Expert,
+  Intermediate,
+  New  
+}
+
+entity Profile {
+	points Integer min(0)
+    smeLevel SmeLevel
+    skills String required
+    expertIn String
+    shadowingIn String
+    city String
+    location String	
+}
+
+entity Attendence {
+	attendended Boolean 
+    // The day for a multi day course
+    day Integer min(1) max(20)
+    rating Integer min(0) max(5)
+    comments String
+}
+
+
+relationship ManyToOne {
+  Attendence{course(name)} to Course
+}
+relationship ManyToOne {
+  Attendence{user(login)} to User
+}
+relationship OneToOne {
+	Profile{user(login)} to User
+}
+
+relationship ManyToMany {
+	Course{sme(login)} to User{course(name)}
+}
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

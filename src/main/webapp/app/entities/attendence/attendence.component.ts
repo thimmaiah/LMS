@@ -10,6 +10,8 @@ import { IAttendence } from 'app/shared/model/attendence.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { AttendenceService } from './attendence.service';
 import { AttendenceDeleteDialogComponent } from './attendence-delete-dialog.component';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
 
 @Component({
   selector: 'jhi-attendence',
@@ -29,6 +31,7 @@ export class AttendenceComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  account: Account;
 
   constructor(
     protected attendenceService: AttendenceService,
@@ -36,7 +39,8 @@ export class AttendenceComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected accountService: AccountService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -49,6 +53,17 @@ export class AttendenceComponent implements OnInit, OnDestroy {
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
         ? this.activatedRoute.snapshot.queryParams['search']
         : '';
+
+    this.accountService = accountService;
+    this.accountService.identity().subscribe(acc => (this.account = acc));
+  }
+
+  canEdit(attendence) {
+    if (this.account.login === attendence.userLogin || this.accountService.hasAnyAuthority('ROLE_ADMIN')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   loadAll() {

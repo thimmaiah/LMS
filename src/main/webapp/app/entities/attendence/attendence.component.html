@@ -39,7 +39,7 @@
             <th scope="col"  jhiSortBy="rating"><span>Rating</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="comments"><span>Comments</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="courseName"><span>Course</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="profileId"><span>Profile</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userLogin"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -56,9 +56,7 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="attendence.profileId">
-                        <a [routerLink]="['/profile', attendence.profileId , 'view' ]" >{{attendence.profileId}}</a>
-                    </div>
+                    {{attendence.userLogin}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group">
@@ -68,13 +66,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *ngIf="canEdit(attendence)"
                                 [routerLink]="['/attendence', attendence.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
-                        <button type="submit" (click)="delete(attendence)"
+                        <button type="submit" (click)="delete(attendence)" *ngIf="canEdit(attendence)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>

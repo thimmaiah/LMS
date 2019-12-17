@@ -138,14 +138,7 @@
                 <div class="form-group">
                     <label for="field_smes">Sme</label>
                     <select class="form-control" id="field_smes" multiple name="smes" formControlName="smes">
-                        <option [ngValue]="getSelected(editForm.get('smes').value, profileOption)" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.user}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_company">Company</label>
-                    <select class="form-control" id="field_company" name="company" formControlName="companyId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                        <option [ngValue]="getSelected(editForm.get('smes').value, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
                     </select>
                 </div>
             </div>

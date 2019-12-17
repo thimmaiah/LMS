@@ -37,7 +37,6 @@ export class CourseUpdatePage {
   createdAtInput = element(by.id('field_createdAt'));
   updatedAtInput = element(by.id('field_updatedAt'));
   smeSelect = element(by.id('field_sme'));
-  companySelect = element(by.id('field_company'));
 
   async getPageTitle() {
     return this.pageTitle.getText();
@@ -140,25 +139,6 @@ export class CourseUpdatePage {
 
   async getSmeSelectedOption() {
     return await this.smeSelect.element(by.css('option:checked')).getText();
-  }
-
-  async companySelectLastOption() {
-    await this.companySelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async companySelectOption(option) {
-    await this.companySelect.sendKeys(option);
-  }
-
-  getCompanySelect(): ElementFinder {
-    return this.companySelect;
-  }
-
-  async getCompanySelectedOption() {
-    return await this.companySelect.element(by.css('option:checked')).getText();
   }
 
   async save() {
