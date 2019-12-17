@@ -13,6 +13,11 @@
                 <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th scope="col"  jhiSortBy="login"><span>Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th scope="col"  jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="profile.smeLevel"><span>SME Level</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="profile.skills"><span>Skills</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="profile.expertIn"><span>Expert In</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="profile.shadowingIn"><span>Shadowing In</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="profile.city"><span>City</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th scope="col"></th>
                 <th scope="col"><span>Profiles</span></th>
                 <th scope="col" jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -26,6 +31,11 @@
                 <td><a [routerLink]="['./', user.login, 'view']">{{user.id}}</a></td>
                 <td>{{user.login}}</td>
                 <td>{{user.email}}</td>
+                <td>{{user.profile?.smeLevel}}</td>
+                <td>{{user.profile?.skills}}</td>
+                <td>{{user.profile?.expertIn}}</td>
+                <td>{{user.profile?.shadowingIn}}</td>
+                <td>{{user.profile?.city}}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"
                            >Deactivated</button>
