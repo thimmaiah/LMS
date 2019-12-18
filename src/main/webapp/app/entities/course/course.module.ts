@@ -11,6 +11,7 @@ import { courseRoute } from './course.route';
 @NgModule({
   imports: [TestSharedModule, RouterModule.forChild(courseRoute)],
   declarations: [CourseComponent, CourseDetailComponent, CourseUpdateComponent, CourseDeleteDialogComponent],
-  entryComponents: [CourseDeleteDialogComponent]
+  entryComponents: [CourseDeleteDialogComponent],
+  exports: []
 })
 export class TestCourseModule {}

@@ -1,23 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TestCourseModule } from './course/course.module';
+import { TestAttendenceModule } from './attendence/attendence.module';
 
 @NgModule({
-  imports: [
-    RouterModule.forChild([
-      {
-        path: 'course',
-        loadChildren: () => import('./course/course.module').then(m => m.TestCourseModule)
-      },
-      {
-        path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then(m => m.TestProfileModule)
-      },
-      {
-        path: 'attendence',
-        loadChildren: () => import('./attendence/attendence.module').then(m => m.TestAttendenceModule)
-      }
-      /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
-    ])
-  ]
+  imports: [TestCourseModule, TestAttendenceModule]
 })
 export class TestEntityModule {}

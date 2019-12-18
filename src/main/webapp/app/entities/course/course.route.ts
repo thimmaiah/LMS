@@ -27,7 +27,7 @@ export class CourseResolve implements Resolve<ICourse> {
 
 export const courseRoute: Routes = [
   {
-    path: '',
+    path: 'course',
     component: CourseComponent,
     resolve: {
       pagingParams: JhiResolvePagingParams
@@ -40,7 +40,7 @@ export const courseRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: ':id/view',
+    path: 'course/:id/view',
     component: CourseDetailComponent,
     resolve: {
       course: CourseResolve
@@ -52,25 +52,25 @@ export const courseRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'new',
+    path: 'course/new',
     component: CourseUpdateComponent,
     resolve: {
       course: CourseResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'Courses'
     },
     canActivate: [UserRouteAccessService]
   },
   {
-    path: ':id/edit',
+    path: 'course/:id/edit',
     component: CourseUpdateComponent,
     resolve: {
       course: CourseResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'Courses'
     },
     canActivate: [UserRouteAccessService]

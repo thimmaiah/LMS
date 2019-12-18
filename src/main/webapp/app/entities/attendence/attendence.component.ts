@@ -32,6 +32,7 @@ export class AttendenceComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   account: Account;
+  courseId: any;
 
   constructor(
     protected attendenceService: AttendenceService,
@@ -49,6 +50,11 @@ export class AttendenceComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.courseId = params['courseId'];
+    });
+
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
         ? this.activatedRoute.snapshot.queryParams['search']
@@ -82,7 +88,8 @@ export class AttendenceComponent implements OnInit, OnDestroy {
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort()
+        sort: this.sort(),
+        'courseId.equals': this.courseId
       })
       .subscribe((res: HttpResponse<IAttendence[]>) => this.paginateAttendences(res.body, res.headers));
   }

@@ -9,7 +9,8 @@ import { AttendenceDeleteDialogComponent } from './attendence-delete-dialog.comp
 import { attendenceRoute } from './attendence.route';
 
 @NgModule({
-  imports: [TestSharedModule, RouterModule.forChild(attendenceRoute)],
+  imports: [RouterModule.forChild(attendenceRoute), TestSharedModule],
+  exports: [AttendenceComponent],
   declarations: [AttendenceComponent, AttendenceDetailComponent, AttendenceUpdateComponent, AttendenceDeleteDialogComponent],
   entryComponents: [AttendenceDeleteDialogComponent]
 })

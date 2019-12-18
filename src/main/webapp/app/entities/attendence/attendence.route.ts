@@ -27,7 +27,7 @@ export class AttendenceResolve implements Resolve<IAttendence> {
 
 export const attendenceRoute: Routes = [
   {
-    path: '',
+    path: 'attendence',
     component: AttendenceComponent,
     resolve: {
       pagingParams: JhiResolvePagingParams
@@ -40,7 +40,7 @@ export const attendenceRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: ':id/view',
+    path: 'attendence/:id/view',
     component: AttendenceDetailComponent,
     resolve: {
       attendence: AttendenceResolve
@@ -52,7 +52,7 @@ export const attendenceRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'new',
+    path: 'attendence/new',
     component: AttendenceUpdateComponent,
     resolve: {
       attendence: AttendenceResolve
@@ -64,7 +64,7 @@ export const attendenceRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: ':id/edit',
+    path: 'attendence/:id/edit',
     component: AttendenceUpdateComponent,
     resolve: {
       attendence: AttendenceResolve

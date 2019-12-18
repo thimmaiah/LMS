@@ -116,6 +116,7 @@ public class AttendenceQueryService extends QueryService<Attendence> {
                 specification = specification.and(buildStringSpecification(criteria.getComments(), Attendence_.comments));
             }
             if (criteria.getCourseId() != null) {
+                log.debug("criteria courseId = {}", criteria.getCourseId());
                 specification = specification.and(buildSpecification(criteria.getCourseId(),
                     root -> root.join(Attendence_.course, JoinType.LEFT).get(Course_.id)));
             }

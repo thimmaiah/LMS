@@ -53,10 +53,15 @@
                 </dd>
             </dl>
 
+            <button class="btn btn-primary" type="button" [routerLink]="['/attendence']" [queryParams]="{courseId: course.id}" > 
+                <span> Attendence </span> 
+            </button>
+
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+
             </button>
 
             <button type="button" *jhiHasAnyAuthority="'ROLE_ADMIN'"
