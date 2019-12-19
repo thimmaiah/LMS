@@ -80,6 +80,11 @@
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>
                         </button>
+
+                        <button class="btn btn-primary" type="button" [routerLink]="['/attendence']" [queryParams]="{courseId: course.id}" > 
+                            <fa-icon [icon]="'clock'"></fa-icon>
+                            <span> Attendence </span> 
+                        </button>
                     </div>
                 </td>
             </tr>

@@ -34,18 +34,19 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userLogin"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="attendended"><span>Attendended</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="day"><span>Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="rating"><span>Rating</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="comments"><span>Comments</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="courseName"><span>Course</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="userLogin"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let attendence of attendences ;trackBy: trackId">
                 <td><a [routerLink]="['/attendence', attendence.id, 'view' ]">{{attendence.id}}</a></td>
+                <td>{{attendence.userLogin}} </td>
                 <td>{{attendence.attendended}}</td>
                 <td>{{attendence.day}}</td>
                 <td>{{attendence.rating}}</td>
@@ -55,9 +56,7 @@
                         <a [routerLink]="['/course', attendence.courseId , 'view' ]" >{{attendence.courseName}}</a>
                     </div>
                 </td>
-                <td>
-                    {{attendence.userLogin}}
-                </td>
+                
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

@@ -12,6 +12,7 @@ import { AttendenceService } from './attendence.service';
 import { AttendenceDeleteDialogComponent } from './attendence-delete-dialog.component';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
+import { noUndefined } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'jhi-attendence',
@@ -84,14 +85,22 @@ export class AttendenceComponent implements OnInit, OnDestroy {
         .subscribe((res: HttpResponse<IAttendence[]>) => this.paginateAttendences(res.body, res.headers));
       return;
     }
-    this.attendenceService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-        'courseId.equals': this.courseId
-      })
-      .subscribe((res: HttpResponse<IAttendence[]>) => this.paginateAttendences(res.body, res.headers));
+
+    const params = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort()
+    };
+
+    if (noUndefined(this.courseId)) {
+      params['courseId.equals'] = this.courseId;
+    }
+
+    if (!this.accountService.hasAnyAuthority('ADMIN_ROLE')) {
+      params['userId.equals'] = this.account.id;
+    }
+
+    this.attendenceService.query(params).subscribe((res: HttpResponse<IAttendence[]>) => this.paginateAttendences(res.body, res.headers));
   }
 
   loadPage(page: number) {

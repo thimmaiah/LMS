@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import com.learnnow.domain.User;
+
 /**
  * Utility class for Spring Security.
  */
@@ -35,6 +37,7 @@ public final class SecurityUtils {
                 return null;
             });
     }
+
 
     /**
      * Get the JWT of the current user.

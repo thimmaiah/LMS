@@ -1,13 +1,18 @@
 package com.learnnow.web.rest;
 
 import com.learnnow.service.AttendenceService;
+import com.learnnow.service.UserService;
 import com.learnnow.web.rest.errors.BadRequestAlertException;
 import com.learnnow.service.dto.AttendenceDTO;
+import com.learnnow.service.mapper.AttendenceMapper;
 import com.learnnow.service.dto.AttendenceCriteria;
+import com.learnnow.domain.Attendence;
+import com.learnnow.domain.User;
 import com.learnnow.security.AuthoritiesConstants;
 import com.learnnow.security.SecurityUtils;
 import com.learnnow.service.AttendenceQueryService;
 
+import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -50,9 +55,18 @@ public class AttendenceResource {
 
     private final AttendenceQueryService attendenceQueryService;
 
-    public AttendenceResource(AttendenceService attendenceService, AttendenceQueryService attendenceQueryService) {
+    private final UserService userService;
+
+    private final AttendenceMapper attendenceMapper;
+
+    public AttendenceResource(AttendenceService attendenceService, 
+        AttendenceQueryService attendenceQueryService,
+        AttendenceMapper attendenceMapper,
+        UserService userService) {
         this.attendenceService = attendenceService;
         this.attendenceQueryService = attendenceQueryService;
+        this.userService = userService;
+        this.attendenceMapper = attendenceMapper;
     }
 
     /**
@@ -89,6 +103,14 @@ public class AttendenceResource {
         if (attendenceDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        Attendence attendence = attendenceMapper.toEntity(attendenceDTO);
+        
+        if  (attendence.getUser() != null &&
+            !attendence.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
         AttendenceDTO result = attendenceService.save(attendenceDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, attendenceDTO.getId().toString()))
@@ -108,11 +130,7 @@ public class AttendenceResource {
     public ResponseEntity<List<AttendenceDTO>> getAllAttendences(AttendenceCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Attendences by criteria: {}", criteria);
         Page<AttendenceDTO> page;
-        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) { 
-            page = attendenceQueryService.findByCriteria(criteria, pageable);
-        } else {
-            page = attendenceQueryService.findByCurrentUser(criteria, pageable);
-        }
+        page = attendenceQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

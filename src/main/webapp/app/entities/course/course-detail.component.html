@@ -54,7 +54,11 @@
             </dl>
 
             <button class="btn btn-primary" type="button" [routerLink]="['/attendence']" [queryParams]="{courseId: course.id}" > 
-                <span> Attendence </span> 
+                <span> View Attendence </span> 
+            </button>
+
+            <button class="btn btn-primary" type="button" [routerLink]="['/attendence/new']" [queryParams]="{courseId: course.id}" > 
+                <span> Mark Attendence </span> 
             </button>
 
             <button type="submit"

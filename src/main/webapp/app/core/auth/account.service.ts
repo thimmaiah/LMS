@@ -58,6 +58,7 @@ export class AccountService {
         tap(account => {
           if (account) {
             this.userIdentity = account;
+            console.log('Got account info', this.userIdentity);
             this.authenticated = true;
             this.trackerService.connect();
           } else {

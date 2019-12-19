@@ -12,6 +12,9 @@ import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course/course.service';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
+import { noUndefined } from '@angular/compiler/src/util';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
 
 @Component({
   selector: 'jhi-attendence-update',
@@ -23,6 +26,8 @@ export class AttendenceUpdateComponent implements OnInit {
   courses: ICourse[];
 
   users: IUser[];
+
+  account: Account;
 
   editForm = this.fb.group({
     id: [],
@@ -40,14 +45,28 @@ export class AttendenceUpdateComponent implements OnInit {
     protected courseService: CourseService,
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private accountService: AccountService
+  ) {
+    accountService.identity().subscribe(acc => (this.account = acc));
+  }
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ attendence }) => {
       this.updateForm(attendence);
     });
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (noUndefined(params['courseId'])) {
+        const attendence: IAttendence = {
+          courseId: params['courseId'],
+          userId: this.account.id
+        };
+        this.updateForm(attendence);
+      }
+    });
+
     this.courseService
       .query()
       .subscribe((res: HttpResponse<ICourse[]>) => (this.courses = res.body), (res: HttpErrorResponse) => this.onError(res.message));
