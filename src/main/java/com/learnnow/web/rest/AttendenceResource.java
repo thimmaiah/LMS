@@ -104,11 +104,9 @@ public class AttendenceResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Attendence attendence = attendenceMapper.toEntity(attendenceDTO);
-        
-        if  (attendence.getUser() != null &&
-            !attendence.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        String ownerLogin = attendenceService.findOne(attendenceDTO.getId()).map(dto -> dto.getUserLogin()).orElse(null);
+        if (!ownerLogin.equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity("Forbidden. User is not Owner", HttpStatus.FORBIDDEN);
         }
 
         AttendenceDTO result = attendenceService.save(attendenceDTO);
