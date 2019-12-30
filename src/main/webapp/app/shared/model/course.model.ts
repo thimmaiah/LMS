@@ -13,6 +13,8 @@ export interface ICourse {
   startDate?: Moment;
   createdAt?: Moment;
   updatedAt?: Moment;
+  preRequisites?: any;
+  objectives?: any;
   smes?: IUser[];
 }
 
@@ -29,6 +31,8 @@ export class Course implements ICourse {
     public startDate?: Moment,
     public createdAt?: Moment,
     public updatedAt?: Moment,
+    public preRequisites?: any,
+    public objectives?: any,
     public smes?: IUser[]
   ) {}
 }

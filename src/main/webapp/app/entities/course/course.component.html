@@ -45,6 +45,8 @@
             <th scope="col"  jhiSortBy="startDate"><span>Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="updatedAt"><span>Updated At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="preRequisites"><span>Pre Requisites</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="objectives"><span>Objectives</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -61,9 +63,11 @@
                 <td>{{course.startDate | date:'medium'}}</td>
                 <td>{{course.createdAt | date:'medium'}}</td>
                 <td>{{course.updatedAt | date:'medium'}}</td>
+                <td>{{course.preRequisites}}</td>
+                <td>{{course.objectives}}</td>
                 <td class="text-right">
                     <div class="btn-group">
-                        <button type="submit" 
+                        <button type="submit"
                                 [routerLink]="['/course', course.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
@@ -84,7 +88,7 @@
                         <button class="btn btn-primary" type="button" [routerLink]="['/attendence']" [queryParams]="{courseId: course.id}" > 
                             <fa-icon [icon]="'clock'"></fa-icon>
                             <span> Attendence </span> 
-                        </button>
+                        </button>                    
                     </div>
                 </td>
             </tr>

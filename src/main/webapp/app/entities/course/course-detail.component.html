@@ -45,6 +45,14 @@
                 <dd>
                     <span>{{course.updatedAt}}</span>
                 </dd>
+                <dt><span>Pre Requisites</span></dt>
+                <dd>
+                    <span>{{course.preRequisites}}</span>
+                </dd>
+                <dt><span>Objectives</span></dt>
+                <dd>
+                    <span>{{course.objectives}}</span>
+                </dd>
                 <dt><span>Sme</span></dt>
                 <dd>
                     <span *ngFor="let sme of course.smes; let last = last">
@@ -65,7 +73,6 @@
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
-
             </button>
 
             <button type="button" *jhiHasAnyAuthority="'ROLE_ADMIN'"

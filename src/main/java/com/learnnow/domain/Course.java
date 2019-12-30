@@ -67,6 +67,14 @@ public class Course implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @Lob
+    @Column(name = "pre_requisites")
+    private String preRequisites;
+
+    @Lob
+    @Column(name = "objectives")
+    private String objectives;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "course_sme",
@@ -213,6 +221,32 @@ public class Course implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public String getPreRequisites() {
+        return preRequisites;
+    }
+
+    public Course preRequisites(String preRequisites) {
+        this.preRequisites = preRequisites;
+        return this;
+    }
+
+    public void setPreRequisites(String preRequisites) {
+        this.preRequisites = preRequisites;
+    }
+
+    public String getObjectives() {
+        return objectives;
+    }
+
+    public Course objectives(String objectives) {
+        this.objectives = objectives;
+        return this;
+    }
+
+    public void setObjectives(String objectives) {
+        this.objectives = objectives;
+    }
+
     public Set<User> getSmes() {
         return smes;
     }
@@ -267,6 +301,8 @@ public class Course implements Serializable {
             ", startDate='" + getStartDate() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
+            ", preRequisites='" + getPreRequisites() + "'" +
+            ", objectives='" + getObjectives() + "'" +
             "}";
     }
 }

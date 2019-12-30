@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link com.learnnow.domain.Course} entity.
@@ -42,6 +43,12 @@ public class CourseDTO implements Serializable {
 
     @NotNull
     private Instant updatedAt;
+
+    @Lob
+    private String preRequisites;
+
+    @Lob
+    private String objectives;
 
 
     private Set<UserDTO> smes = new HashSet<>();
@@ -134,6 +141,22 @@ public class CourseDTO implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public String getPreRequisites() {
+        return preRequisites;
+    }
+
+    public void setPreRequisites(String preRequisites) {
+        this.preRequisites = preRequisites;
+    }
+
+    public String getObjectives() {
+        return objectives;
+    }
+
+    public void setObjectives(String objectives) {
+        this.objectives = objectives;
+    }
+
     public Set<UserDTO> getSmes() {
         return smes;
     }
@@ -177,6 +200,8 @@ public class CourseDTO implements Serializable {
             ", startDate='" + getStartDate() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
+            ", preRequisites='" + getPreRequisites() + "'" +
+            ", objectives='" + getObjectives() + "'" +
             "}";
     }
 }

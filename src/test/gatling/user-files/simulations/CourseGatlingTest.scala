@@ -82,6 +82,8 @@ class CourseGatlingTest extends Simulation {
                 , "startDate":"2020-01-01T00:00:00.000Z"
                 , "createdAt":"2020-01-01T00:00:00.000Z"
                 , "updatedAt":"2020-01-01T00:00:00.000Z"
+                , "preRequisites":null
+                , "objectives":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_course_url"))).exitHereIfFailed

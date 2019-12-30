@@ -24,7 +24,21 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Course(0, 'AAAAAAA', 0, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate, currentDate, currentDate);
+      elemDefault = new Course(
+        0,
+        'AAAAAAA',
+        0,
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        currentDate,
+        currentDate,
+        currentDate,
+        'AAAAAAA',
+        'AAAAAAA'
+      );
     });
 
     describe('Service methods', () => {
@@ -86,7 +100,9 @@ describe('Service Tests', () => {
             location: 'BBBBBB',
             startDate: currentDate.format(DATE_TIME_FORMAT),
             createdAt: currentDate.format(DATE_TIME_FORMAT),
-            updatedAt: currentDate.format(DATE_TIME_FORMAT)
+            updatedAt: currentDate.format(DATE_TIME_FORMAT),
+            preRequisites: 'BBBBBB',
+            objectives: 'BBBBBB'
           },
           elemDefault
         );
@@ -120,7 +136,9 @@ describe('Service Tests', () => {
             location: 'BBBBBB',
             startDate: currentDate.format(DATE_TIME_FORMAT),
             createdAt: currentDate.format(DATE_TIME_FORMAT),
-            updatedAt: currentDate.format(DATE_TIME_FORMAT)
+            updatedAt: currentDate.format(DATE_TIME_FORMAT),
+            preRequisites: 'BBBBBB',
+            objectives: 'BBBBBB'
           },
           elemDefault
         );

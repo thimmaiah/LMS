@@ -1,11 +1,11 @@
-id;name;duration_in_days;hours_per_day;survey_link;tags;city;location;start_date;created_at;updated_at
-1;mobile Fish;16;14;Table Computer;Trace;New Bryon;deposit Tasty Metal Bacon Implementation;2019-12-17T04:34:23;2019-12-17T00:13:40;2019-12-16T04:46:44
-2;Money Market Account;12;13;web-readiness;Namibia;North Alycia;Coordinator;2019-12-16T23:00:19;2019-12-16T17:38:46;2019-12-17T02:25:02
-3;Savings Account syndicate Planner;9;1;Credit Card Account Table Small Frozen Sausages;South Dakota envisioneer Music;New Dayneview;Rubber Buckinghamshire Games;2019-12-16T06:46:05;2019-12-16T19:12:23;2019-12-16T22:22:51
-4;invoice;6;10;sky blue Georgia;Facilitator;Kirlinside;Chief Credit Card Account;2019-12-16T06:28:01;2019-12-16T20:45:17;2019-12-17T02:28:04
-5;sky blue Tasty Plastic Pizza;8;18;South Georgia and the South Sandwich Islands;compelling mission-critical;Dougland;back-end;2019-12-17T02:48:09;2019-12-17T04:12:59;2019-12-16T04:54:24
-6;index orange;0;0;magenta monitor 1080p;Unbranded Plastic Tuna Frozen;Stantonstad;archive Fantastic Plastic Chicken;2019-12-16T20:47:14;2019-12-16T12:36:35;2019-12-16T11:04:53
-7;withdrawal COM;9;9;Developer;synthesize Idaho compress;North Joyce;partnerships Grocery Intelligent;2019-12-17T03:50:14;2019-12-16T07:05:37;2019-12-16T13:19:05
-8;knowledge base Buckinghamshire;19;3;Investment Account;override User-centric;New Effiechester;JSON;2019-12-16T13:36:26;2019-12-16T09:11:49;2019-12-16T21:29:47
-9;Refined Squares;4;4;Human Ghana;Fresh granular Direct;East Luz;Jewelery cutting-edge;2019-12-16T21:16:37;2019-12-17T04:25:29;2019-12-17T00:38:24
-10;Iraq Bedfordshire;14;2;24/7;Gloves sky blue Oklahoma;West Aniyah;Versatile Exclusive Moroccan Dirham;2019-12-16T11:29:50;2019-12-16T21:22:14;2019-12-17T01:02:15
+id;name;duration_in_days;hours_per_day;survey_link;tags;city;location;start_date;created_at;updated_at;pre_requisites;objectives
+1;mobile Fish;16;14;Table Computer;Trace;New Bryon;deposit Tasty Metal Bacon Implementation;2019-12-30T06:06:12;2019-12-30T01:45:30;2019-12-29T06:18:33;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+2;Money Market Account;12;13;web-readiness;Namibia;North Alycia;Coordinator;2019-12-30T00:32:08;2019-12-29T19:10:35;2019-12-30T03:56:51;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+3;Savings Account syndicate Planner;9;1;Credit Card Account Table Small Frozen Sausages;South Dakota envisioneer Music;New Dayneview;Rubber Buckinghamshire Games;2019-12-29T08:17:55;2019-12-29T20:44:12;2019-12-29T23:54:41;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+4;invoice;6;10;sky blue Georgia;Facilitator;Kirlinside;Chief Credit Card Account;2019-12-29T07:59:50;2019-12-29T22:17:07;2019-12-30T03:59:54;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+5;sky blue Tasty Plastic Pizza;8;18;South Georgia and the South Sandwich Islands;compelling mission-critical;Dougland;back-end;2019-12-30T04:19:58;2019-12-30T05:44:48;2019-12-29T06:26:13;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+6;index orange;0;0;magenta monitor 1080p;Unbranded Plastic Tuna Frozen;Stantonstad;archive Fantastic Plastic Chicken;2019-12-29T22:19:04;2019-12-29T14:08:24;2019-12-29T12:36:42;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+7;withdrawal COM;9;9;Developer;synthesize Idaho compress;North Joyce;partnerships Grocery Intelligent;2019-12-30T05:22:04;2019-12-29T08:37:26;2019-12-29T14:50:54;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+8;knowledge base Buckinghamshire;19;3;Investment Account;override User-centric;New Effiechester;JSON;2019-12-29T15:08:16;2019-12-29T10:43:39;2019-12-29T23:01:37;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+9;Refined Squares;4;4;Human Ghana;Fresh granular Direct;East Luz;Jewelery cutting-edge;2019-12-29T22:48:27;2019-12-30T05:57:19;2019-12-30T02:10:13;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt
+10;Iraq Bedfordshire;14;2;24/7;Gloves sky blue Oklahoma;West Aniyah;Versatile Exclusive Moroccan Dirham;2019-12-29T13:01:40;2019-12-29T22:54:04;2019-12-30T02:34:05;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt

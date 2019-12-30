@@ -48,7 +48,9 @@ describe('Course e2e test', () => {
       courseUpdatePage.setLocationInput('location'),
       courseUpdatePage.setStartDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       courseUpdatePage.setCreatedAtInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
-      courseUpdatePage.setUpdatedAtInput('01/01/2001' + protractor.Key.TAB + '02:30AM')
+      courseUpdatePage.setUpdatedAtInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+      courseUpdatePage.setPreRequisitesInput('preRequisites'),
+      courseUpdatePage.setObjectivesInput('objectives')
       // courseUpdatePage.smeSelectLastOption(),
     ]);
     expect(await courseUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
@@ -70,6 +72,11 @@ describe('Course e2e test', () => {
       '2001-01-01T02:30',
       'Expected updatedAt value to be equals to 2000-12-31'
     );
+    expect(await courseUpdatePage.getPreRequisitesInput()).to.eq(
+      'preRequisites',
+      'Expected PreRequisites value to be equals to preRequisites'
+    );
+    expect(await courseUpdatePage.getObjectivesInput()).to.eq('objectives', 'Expected Objectives value to be equals to objectives');
     await courseUpdatePage.save();
     expect(await courseUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

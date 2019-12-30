@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { ICourse, Course } from 'app/shared/model/course.model';
 import { CourseService } from './course.service';
 import { IUser } from 'app/core/user/user.model';
@@ -34,10 +34,13 @@ export class CourseUpdateComponent implements OnInit {
     startDate: [null, [Validators.required]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
+    preRequisites: [],
+    objectives: [],
     smes: []
   });
 
   constructor(
+    protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected courseService: CourseService,
     protected userService: UserService,
@@ -68,8 +71,43 @@ export class CourseUpdateComponent implements OnInit {
       startDate: course.startDate != null ? course.startDate.format(DATE_TIME_FORMAT) : null,
       createdAt: course.createdAt != null ? course.createdAt.format(DATE_TIME_FORMAT) : null,
       updatedAt: course.updatedAt != null ? course.updatedAt.format(DATE_TIME_FORMAT) : null,
+      preRequisites: course.preRequisites,
+      objectives: course.objectives,
       smes: course.smes
     });
+  }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+
+  setFileData(event, field: string, isImage) {
+    return new Promise((resolve, reject) => {
+      if (event && event.target && event.target.files && event.target.files[0]) {
+        const file: File = event.target.files[0];
+        if (isImage && !file.type.startsWith('image/')) {
+          reject(`File was expected to be an image but was found to be ${file.type}`);
+        } else {
+          const filedContentType: string = field + 'ContentType';
+          this.dataUtils.toBase64(file, base64Data => {
+            this.editForm.patchValue({
+              [field]: base64Data,
+              [filedContentType]: file.type
+            });
+          });
+        }
+      } else {
+        reject(`Base64 data was not set as file could not be extracted from passed parameter: ${event}`);
+      }
+    }).then(
+      // eslint-disable-next-line no-console
+      () => console.log('blob added'), // success
+      this.onError
+    );
   }
 
   previousState() {
@@ -103,6 +141,8 @@ export class CourseUpdateComponent implements OnInit {
         this.editForm.get(['createdAt']).value != null ? moment(this.editForm.get(['createdAt']).value, DATE_TIME_FORMAT) : undefined,
       updatedAt:
         this.editForm.get(['updatedAt']).value != null ? moment(this.editForm.get(['updatedAt']).value, DATE_TIME_FORMAT) : undefined,
+      preRequisites: this.editForm.get(['preRequisites']).value,
+      objectives: this.editForm.get(['objectives']).value,
       smes: this.editForm.get(['smes']).value
     };
   }

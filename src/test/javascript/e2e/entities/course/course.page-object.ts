@@ -36,6 +36,8 @@ export class CourseUpdatePage {
   startDateInput = element(by.id('field_startDate'));
   createdAtInput = element(by.id('field_createdAt'));
   updatedAtInput = element(by.id('field_updatedAt'));
+  preRequisitesInput = element(by.id('field_preRequisites'));
+  objectivesInput = element(by.id('field_objectives'));
   smeSelect = element(by.id('field_sme'));
 
   async getPageTitle() {
@@ -120,6 +122,22 @@ export class CourseUpdatePage {
 
   async getUpdatedAtInput() {
     return await this.updatedAtInput.getAttribute('value');
+  }
+
+  async setPreRequisitesInput(preRequisites) {
+    await this.preRequisitesInput.sendKeys(preRequisites);
+  }
+
+  async getPreRequisitesInput() {
+    return await this.preRequisitesInput.getAttribute('value');
+  }
+
+  async setObjectivesInput(objectives) {
+    await this.objectivesInput.sendKeys(objectives);
+  }
+
+  async getObjectivesInput() {
+    return await this.objectivesInput.getAttribute('value');
   }
 
   async smeSelectLastOption() {

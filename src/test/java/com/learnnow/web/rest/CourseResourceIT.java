@@ -26,6 +26,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -80,6 +81,12 @@ public class CourseResourceIT {
 
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_PRE_REQUISITES = "AAAAAAAAAA";
+    private static final String UPDATED_PRE_REQUISITES = "BBBBBBBBBB";
+
+    private static final String DEFAULT_OBJECTIVES = "AAAAAAAAAA";
+    private static final String UPDATED_OBJECTIVES = "BBBBBBBBBB";
 
     @Autowired
     private CourseRepository courseRepository;
@@ -155,7 +162,9 @@ public class CourseResourceIT {
             .location(DEFAULT_LOCATION)
             .startDate(DEFAULT_START_DATE)
             .createdAt(DEFAULT_CREATED_AT)
-            .updatedAt(DEFAULT_UPDATED_AT);
+            .updatedAt(DEFAULT_UPDATED_AT)
+            .preRequisites(DEFAULT_PRE_REQUISITES)
+            .objectives(DEFAULT_OBJECTIVES);
         return course;
     }
     /**
@@ -175,7 +184,9 @@ public class CourseResourceIT {
             .location(UPDATED_LOCATION)
             .startDate(UPDATED_START_DATE)
             .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT);
+            .updatedAt(UPDATED_UPDATED_AT)
+            .preRequisites(UPDATED_PRE_REQUISITES)
+            .objectives(UPDATED_OBJECTIVES);
         return course;
     }
 
@@ -210,6 +221,8 @@ public class CourseResourceIT {
         assertThat(testCourse.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testCourse.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testCourse.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        assertThat(testCourse.getPreRequisites()).isEqualTo(DEFAULT_PRE_REQUISITES);
+        assertThat(testCourse.getObjectives()).isEqualTo(DEFAULT_OBJECTIVES);
 
         // Validate the Course in Elasticsearch
         verify(mockCourseSearchRepository, times(1)).save(testCourse);
@@ -373,7 +386,9 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].preRequisites").value(hasItem(DEFAULT_PRE_REQUISITES.toString())))
+            .andExpect(jsonPath("$.[*].objectives").value(hasItem(DEFAULT_OBJECTIVES.toString())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -429,7 +444,9 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
-            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()));
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
+            .andExpect(jsonPath("$.preRequisites").value(DEFAULT_PRE_REQUISITES.toString()))
+            .andExpect(jsonPath("$.objectives").value(DEFAULT_OBJECTIVES.toString()));
     }
 
 
@@ -1244,7 +1261,9 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].preRequisites").value(hasItem(DEFAULT_PRE_REQUISITES.toString())))
+            .andExpect(jsonPath("$.[*].objectives").value(hasItem(DEFAULT_OBJECTIVES.toString())));
 
         // Check, that the count call also returns 1
         restCourseMockMvc.perform(get("/api/courses/count?sort=id,desc&" + filter))
@@ -1301,7 +1320,9 @@ public class CourseResourceIT {
             .location(UPDATED_LOCATION)
             .startDate(UPDATED_START_DATE)
             .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT);
+            .updatedAt(UPDATED_UPDATED_AT)
+            .preRequisites(UPDATED_PRE_REQUISITES)
+            .objectives(UPDATED_OBJECTIVES);
         CourseDTO courseDTO = courseMapper.toDto(updatedCourse);
 
         restCourseMockMvc.perform(put("/api/courses")
@@ -1323,6 +1344,8 @@ public class CourseResourceIT {
         assertThat(testCourse.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testCourse.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testCourse.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
+        assertThat(testCourse.getPreRequisites()).isEqualTo(UPDATED_PRE_REQUISITES);
+        assertThat(testCourse.getObjectives()).isEqualTo(UPDATED_OBJECTIVES);
 
         // Validate the Course in Elasticsearch
         verify(mockCourseSearchRepository, times(1)).save(testCourse);
@@ -1392,6 +1415,8 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].preRequisites").value(hasItem(DEFAULT_PRE_REQUISITES.toString())))
+            .andExpect(jsonPath("$.[*].objectives").value(hasItem(DEFAULT_OBJECTIVES.toString())));
     }
 }
