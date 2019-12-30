@@ -95,8 +95,7 @@ export class AttendenceComponent implements OnInit, OnDestroy {
     if (noUndefined(this.courseId)) {
       params['courseId.equals'] = this.courseId;
     }
-
-    if (!this.accountService.hasAnyAuthority('ADMIN_ROLE')) {
+    if (this.accountService.hasAnyAuthority('ROLE_ADMIN') === false) {
       params['userId.equals'] = this.account.id;
     }
 
