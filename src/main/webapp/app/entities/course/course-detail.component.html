@@ -4,6 +4,7 @@
             <h2><span>Course</span> {{course.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
+            <jhi-alert></jhi-alert>
             <dl class="row-md jh-entity-details">
                 <dt><span>Name</span></dt>
                 <dd>
@@ -68,6 +69,11 @@
             <button class="btn btn-primary" type="button" [routerLink]="['/attendence/new']" [queryParams]="{courseId: course.id}" > 
                 <span> Mark Attendence </span> 
             </button>
+
+            <button class="btn btn-primary" type="button" (click)="addSme()"> 
+                <span> Add as SME </span> 
+            </button>
+
 
             <button type="submit"
                     (click)="previousState()"

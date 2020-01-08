@@ -27,6 +27,12 @@ export class CourseService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  addSme(id: Number, login: String): Observable<EntityResponseType> {
+    return this.http
+      .post<ICourse>(`${this.resourceUrl}/${id}/addSme/${login}`, {}, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   update(course: ICourse): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(course);
     return this.http

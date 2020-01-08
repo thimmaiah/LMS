@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils } from 'ng-jhipster';
+import { JhiDataUtils, JhiAlertService } from 'ng-jhipster';
 
 import { ICourse } from 'app/shared/model/course.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
+import { CourseService } from './course.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-course-detail',
@@ -10,8 +14,18 @@ import { ICourse } from 'app/shared/model/course.model';
 })
 export class CourseDetailComponent implements OnInit {
   course: ICourse;
+  account: Account;
 
-  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+  constructor(
+    protected dataUtils: JhiDataUtils,
+    protected jhiAlertService: JhiAlertService,
+    protected activatedRoute: ActivatedRoute,
+    protected accountService: AccountService,
+    protected courseService: CourseService
+  ) {
+    this.accountService = accountService;
+    this.accountService.identity().subscribe(acc => (this.account = acc));
+  }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ course }) => {
@@ -28,5 +42,12 @@ export class CourseDetailComponent implements OnInit {
   }
   previousState() {
     window.history.back();
+  }
+
+  addSme() {
+    this.courseService.addSme(this.course.id, this.account.login).subscribe((res: HttpResponse<ICourse>) => {
+      this.course = res.body;
+      this.jhiAlertService.success('Added you as SME to this course');
+    });
   }
 }

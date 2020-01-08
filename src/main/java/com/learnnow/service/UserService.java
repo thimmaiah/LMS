@@ -238,6 +238,17 @@ public class UserService {
         });
     }
 
+    /**
+     * Get one course by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<User> findOne(String login) {
+        return userRepository.findOneWithAuthoritiesByLogin(login);
+    }
+
     public void changePassword(String currentClearTextPassword, String newPassword) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)

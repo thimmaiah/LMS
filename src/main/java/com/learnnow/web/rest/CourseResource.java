@@ -1,8 +1,10 @@
 package com.learnnow.web.rest;
 
 import com.learnnow.service.CourseService;
+import com.learnnow.service.UserService;
 import com.learnnow.web.rest.errors.BadRequestAlertException;
 import com.learnnow.service.dto.CourseDTO;
+import com.learnnow.service.dto.UserDTO;
 import com.learnnow.service.dto.CourseCriteria;
 import com.learnnow.service.CourseQueryService;
 
@@ -19,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,9 +52,12 @@ public class CourseResource {
 
     private final CourseQueryService courseQueryService;
 
-    public CourseResource(CourseService courseService, CourseQueryService courseQueryService) {
+    private final UserService userService;
+
+    public CourseResource(CourseService courseService, CourseQueryService courseQueryService, UserService userService) {
         this.courseService = courseService;
         this.courseQueryService = courseQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -166,5 +172,29 @@ public class CourseResource {
         Page<CourseDTO> page = courseService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code PUT  /courses} : Updates an existing course.
+     *
+     * @param courseDTO the courseDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated courseDTO,
+     * or with status {@code 400 (Bad Request)} if the courseDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the courseDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/courses/{id}/addSme/{login}")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<CourseDTO> addSmeToCourse(@PathVariable Long id, @PathVariable String login) throws URISyntaxException {
+        log.debug("REST request to add SME {} to Course {}", login, id);
+        Optional<CourseDTO> courseDTO = courseService.findOne(id);
+        courseDTO.ifPresent(course -> {
+            Optional<com.learnnow.domain.User> user = userService.findOne(login); 
+            user.ifPresent(sme -> {
+                course.getSmes().add(new UserDTO(sme));
+                courseService.save(course);
+            });
+        });
+        return ResponseUtil.wrapOrNotFound(courseDTO);
     }
 }
