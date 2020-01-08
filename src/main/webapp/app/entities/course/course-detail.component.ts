@@ -50,4 +50,18 @@ export class CourseDetailComponent implements OnInit {
       this.jhiAlertService.success('Added you as SME to this course');
     });
   }
+
+  register() {
+    this.courseService.register(this.course.id, this.account.login).subscribe((res: HttpResponse<ICourse>) => {
+      this.course = res.body;
+      this.jhiAlertService.success('Added you to this course');
+    });
+  }
+
+  deregister() {
+    this.courseService.deregister(this.course.id, this.account.login).subscribe((res: HttpResponse<ICourse>) => {
+      this.course = res.body;
+      this.jhiAlertService.success('Removed you from this course');
+    });
+  }
 }

@@ -4,7 +4,12 @@ import com.learnnow.domain.Attendence;
 import com.learnnow.repository.AttendenceRepository;
 import com.learnnow.repository.search.AttendenceSearchRepository;
 import com.learnnow.service.dto.AttendenceDTO;
+import com.learnnow.service.dto.CourseDTO;
+import com.learnnow.service.dto.UserDTO;
 import com.learnnow.service.mapper.AttendenceMapper;
+import com.learnnow.service.mapper.CourseMapper;
+import com.learnnow.service.mapper.UserMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,13 +34,18 @@ public class AttendenceService {
     private final AttendenceRepository attendenceRepository;
 
     private final AttendenceMapper attendenceMapper;
+    private final CourseMapper courseMapper;
+    private final UserMapper userMapper;
 
     private final AttendenceSearchRepository attendenceSearchRepository;
 
-    public AttendenceService(AttendenceRepository attendenceRepository, AttendenceMapper attendenceMapper, AttendenceSearchRepository attendenceSearchRepository) {
+    public AttendenceService(AttendenceRepository attendenceRepository, AttendenceMapper attendenceMapper, 
+    AttendenceSearchRepository attendenceSearchRepository, CourseMapper courseMapper, UserMapper userMapper) {
         this.attendenceRepository = attendenceRepository;
         this.attendenceMapper = attendenceMapper;
         this.attendenceSearchRepository = attendenceSearchRepository;
+        this.courseMapper = courseMapper;
+        this.userMapper = userMapper;
     }
 
     /**
@@ -103,5 +113,21 @@ public class AttendenceService {
         log.debug("Request to search for a page of Attendences for query {}", query);
         return attendenceSearchRepository.search(queryStringQuery(query), pageable)
             .map(attendenceMapper::toDto);
+    }
+
+
+    public void register(CourseDTO courseDto, UserDTO userDto) {
+        for (int i = 0; i < courseDto.getDurationInDays(); i++) {
+            Attendence a = new Attendence();
+            a.setCourse(this.courseMapper.toEntity(courseDto));
+            a.setUser(this.userMapper.userDTOToUser(userDto));
+            a.setDay(i+1);
+            a.setAttendended(false);
+            this.attendenceRepository.save(a);
+        }
+    }
+
+    public void deregister(CourseDTO courseDto, UserDTO userDto) {
+        this.attendenceRepository.deleteByCourseIdAndUserId(courseDto.getId(), userDto.getId());   
     }
 }

@@ -33,6 +33,18 @@ export class CourseService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  register(id: Number, login: String): Observable<EntityResponseType> {
+    return this.http
+      .post<ICourse>(`${this.resourceUrl}/${id}/register/${login}`, {}, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  deregister(id: Number, login: String): Observable<EntityResponseType> {
+    return this.http
+      .post<ICourse>(`${this.resourceUrl}/${id}/deregister/${login}`, {}, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   update(course: ICourse): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(course);
     return this.http
