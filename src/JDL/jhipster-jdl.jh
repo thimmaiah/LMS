@@ -7,9 +7,11 @@ entity Course {
     tags String
     city String
     location String	
+    preRequisites TextBlob
+    objectives TextBlob
     startDate Instant required
-	createdAt Instant required
-	updatedAt Instant required
+	  createdAt Instant required
+	  updatedAt Instant required
 }
 
 enum SmeLevel {

@@ -19,4 +19,6 @@ public interface AttendenceRepository extends JpaRepository<Attendence, Long>, J
     @Query("select attendence from Attendence attendence where attendence.user.login = ?#{principal.username}")
     Page<Attendence> findByUserIsCurrentUser(Specification<Attendence> spec, Pageable pageable);
 
+    Long deleteByCourseIdAndUserId(Long courseId, Long userId);
+
 }
