@@ -47,6 +47,16 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "preRequisites",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "objectives",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
             "fieldName": "startDate",
             "fieldType": "Instant",
             "fieldValidateRules": [
@@ -66,16 +76,6 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "preRequisites",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "text"
-        },
-        {
-            "fieldName": "objectives",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "text"
         }
     ],
     "relationships": [
